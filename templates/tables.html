@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;    
+}
+</style>
+</head>
+<body>
+
+<h1 style="text-align: center; margin:50px 100px">Data Collection</h1>
+
+<table style="width:100%">
+  <tr>
+    <th>ID</th>
+    <th>Images</th>
+    <th>Category</th>
+    <th>Tag</th>
+  </tr>
+  {% for data in database %}
+  <tr>
+    <td>{{data.id}}</td>
+    <td>{{data.image}}</td>
+    <td>{{data.category}}</td>
+    <td>{{data.tag}}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+  <a href="/">
+    <button style="vertical-align:top;margin:100px 600px">Home</button>
+  </a>
+
+
+</body>
+</html>
