@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'image_classification',
         'USER' : 'postgres',
-        'PASSWORD' : '4862',
+        'PASSWORD' : '****',
         'HOST' : 'localhost'
     }
 }
