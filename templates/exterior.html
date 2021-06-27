@@ -4,6 +4,7 @@
 <html>
 <head>
 	<title>Exterior</title>
+	<!--
 	<script>
         const buttonList = [];
 
@@ -24,6 +25,7 @@
 			});
 		}
     </script>
+	-->
 	<style>
 .button {
   background-color: white; 
@@ -67,22 +69,25 @@
 			<img src="{{database_image}}" alt = "Surat" width='400' height='400' style="vertical-align:top;margin:20px 100px">
 		</div>
 		<div class="column">
-
-			{% for tags in exterior_tags%}
+			<form action="tables">
 			<div class='row'>
-				{% for tag in tags%}
-				<button class="button" type="button" name="{{tag}}" onclick="setButtonList(event)" style="vertical-align:top;margin:10px 10px">{{tag}}</button>
+				{% for tags in exterior_tags%}
+				<!--<button class="button" type="button" name="{{tag}}" onclick="setButtonList(event)" style="vertical-align:top;margin:10px 10px">{{tag}}</button>-->
+				<input type="checkbox" id="{{tags}}" name="{{tags}}" value="{{tags}}">
+  				<label for="{{tags}}"> {{tags}}</label><br>
 				{% endfor %}
 			</div>
-			{% endfor %}
-			<div id="buttonList"></div>
+			<input type="submit" value="Submit">
+			</form>
+			<!--<div id="buttonList"></div>-->
 		</div>
 	</div>
 	
+	<!--
 	<a href="tables">
 	<button style="vertical-align:top;margin:50px 200px">Submit</button>
 	</a>
-
+	-->
 	
 </body>
 </html>

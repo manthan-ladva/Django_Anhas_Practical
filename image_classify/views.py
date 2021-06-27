@@ -4,27 +4,26 @@ import random
 
 # Create your views here.
 
+
+#//-------------------------------------------//Lists
 categories = ['Interior', 'Exterior']
 interior_tags = [
-    ['Kitchen', 'Dining', 'Bedroom'],
-    ['BathRoom', 'Hallway', 'GYM'],
-    ['Front Door', 'Media Room', 'Laundry Room'],
-    ['Basement', 'Office', 'Closet'],
-    ['Archit.Drawing', 'Sunroom', 'Community'],
-    ['Garage', 'FamilyRoom', 'Stairs']
+    'Kitchen', 'Dining', 'Bedroom', 'BathRoom', 'Hallway', 'GYM', 'Front Door',
+    'Media Room', 'Laundry Room', 'Basement', 'Office', 'Closet', 'Archit.Drawing',
+    'Sunroom', 'Community','Garage', 'FamilyRoom', 'Stairs'
 ]
-exterior_tags = [
-    ['House', 'TownHouse'],
-    ['Mobile / Manufactured', 'Condo / Appartment'],
-    ['PentHouse', 'None']
-]
+exterior_tags = ['House', 'TownHouse', 'Mobile / Manufactured', 'Condo / Appartment', 'PentHouse', 'None']
 
+
+#//-------------------------------------------//Image Code
 photo_list = []
 database = Categories_Tags.objects.all()
 for i in database:
     photo_list.append(i.image)
 a_number = []
 
+
+#//-------------------------------------------//Functions
 def home(request):
     random_number = random.randint(0,20)
     if len(a_number) == 0:
@@ -55,14 +54,57 @@ def exterior(request):
 
 
 def tables(request):
-    arr = request.POST.getlist('arr')
-    print(arr)
+    tags = []
+    """
+    for tag in interior_tags:
+        try:
+            tags.append(request.GET[tag])
+        except Exception as e:
+            pass
+
+    for tag in exterior_tags:
+        try:
+            tags.append(request.GET[tag])
+        except Exception as e:
+            pass
+    """
     for i in database:
         if i.image == photo_list[a_number[0]]:
+            if i.category == 'Interior':
+                for interior_tag in interior_tags:
+                    try:
+                        tags.append(request.GET[interior_tag])
+                    except Exception as e:
+                        pass
+            else:
+                for exterior_tag in exterior_tags:
+                    try:
+                        tags.append(request.GET[exterior_tag])
+                    except Exception as e:
+                        pass
+            print(tags)
             print(photo_list[a_number[0]])
-            if len(arr) == 0:
+            if len(tags) == 0:
                 i.tag = 'None'
             else:
-                i.tag = arr
+                i.tag = tags
             i.save()
     return render(request, 'tables.html', {'database' : database})
+
+
+#//-------------------------------------------//Commented Lists
+"""
+interior_tags = [
+    ['Kitchen', 'Dining', 'Bedroom'],
+    ['BathRoom', 'Hallway', 'GYM'],
+    ['Front Door', 'Media Room', 'Laundry Room'],
+    ['Basement', 'Office', 'Closet'],
+    ['Archit.Drawing', 'Sunroom', 'Community'],
+    ['Garage', 'FamilyRoom', 'Stairs']
+]
+exterior_tags = [
+    ['House', 'TownHouse'],
+    ['Mobile / Manufactured', 'Condo / Appartment'],
+    ['PentHouse', 'None']
+]
+"""
