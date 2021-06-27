@@ -4,6 +4,26 @@
 <html>
 <head>
 	<title>Exterior</title>
+	<script>
+        const buttonList = [];
+
+        const setButtonList = (event) => {
+            const buttonName = event.target.name;
+            if(buttonList.indexOf(buttonName) === -1) buttonList.push(buttonName);
+            document.getElementById('buttonList').innerHTML = buttonList;
+        }
+
+		const submit = () =>{
+			$.ajax({
+				url: 'tables',
+				type: 'POST',
+				data: {'arr': buttonList},
+				success: function(){
+					console.log('Success');
+				},
+			});
+		}
+    </script>
 	<style>
 .button {
   background-color: white; 
@@ -51,11 +71,11 @@
 			{% for tags in exterior_tags%}
 			<div class='row'>
 				{% for tag in tags%}
-				<button class="button" style="vertical-align:top;margin:10px 10px">{{tag}}</button>
+				<button class="button" type="button" name="{{tag}}" onclick="setButtonList(event)" style="vertical-align:top;margin:10px 10px">{{tag}}</button>
 				{% endfor %}
 			</div>
 			{% endfor %}
-
+			<div id="buttonList"></div>
 		</div>
 	</div>
 	

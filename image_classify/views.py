@@ -20,8 +20,8 @@ exterior_tags = [
 ]
 
 photo_list = []
-database_image = Categories_Tags.objects.only('image')
-for i in database_image:
+database = Categories_Tags.objects.all()
+for i in database:
     photo_list.append(i.image)
 a_number = []
 
@@ -37,12 +37,16 @@ def home(request):
 
 
 def interior(request):
+    for i in database:
+        if i.image == photo_list[a_number[0]]:
+            print(photo_list[a_number[0]])
+            i.category = 'Interior'
+            i.save()
     return render(request, 'interior.html', {'interior_tags' : interior_tags, 'database_image' : photo_list[a_number[0]]})
 
 
 def exterior(request):
-    updating_database = Categories_Tags.objects.all()
-    for i in updating_database:
+    for i in database:
         if i.image == photo_list[a_number[0]]:
             print(photo_list[a_number[0]])
             i.category = 'Exterior'
@@ -51,7 +55,14 @@ def exterior(request):
 
 
 def tables(request):
-    arr = request.POST.get('arr')
+    arr = request.POST.getlist('arr')
     print(arr)
-    database = Categories_Tags.objects.all()
+    for i in database:
+        if i.image == photo_list[a_number[0]]:
+            print(photo_list[a_number[0]])
+            if len(arr) == 0:
+                i.tag = 'None'
+            else:
+                i.tag = arr
+            i.save()
     return render(request, 'tables.html', {'database' : database})
